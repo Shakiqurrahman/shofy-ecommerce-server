@@ -3,6 +3,7 @@ import express from "express";
 import helmet from "helmet";
 import cookieParser from "cookie-parser";
 import { MAX_JSON_SIZE } from "./constants.js";
+import router from "./routes/routes.js"
 export const app = express();
 
 // middleware
@@ -20,3 +21,5 @@ app.use(cookieParser());
 app.get("/", (req, res) => {
     res.send("Hello world!");
 });
+
+app.use("/api", router);
