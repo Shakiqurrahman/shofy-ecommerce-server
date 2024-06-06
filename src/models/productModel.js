@@ -9,7 +9,7 @@ const productSchema = new mongoose.Schema(
         description: {
             type: String,
         },
-        imgUrl : {
+        productImg : {
             type: String,
             required: true,
         },
@@ -21,6 +21,7 @@ const productSchema = new mongoose.Schema(
         category: {
             type: String,
             required: true,
+            lowercase: true,
         },
         dateAdded: {
             type: Date,
