@@ -7,6 +7,7 @@ import {
     updateProduct,
 } from "../controllers/productsController.js";
 import {
+    deleteUser,
     getAllUsers,
     loginUser,
     registerUser,
@@ -24,5 +25,6 @@ router.delete("/product/:id", deleteProduct);
 router.post("/auth/register", registerUser);
 router.post("/auth/login", loginUser);
 router.get("/users", getAllUsers);
+router.delete("/user/:id", deleteUser);
 
 export default router;
