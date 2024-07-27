@@ -1,6 +1,5 @@
 import { User } from "../models/userModel.js";
 
-//register user
 export const registerUser = async (req, res) => {
     try {
         const { name, email, password, confirmPassword } = req.body;
@@ -35,7 +34,6 @@ export const registerUser = async (req, res) => {
     }
 };
 
-// login user
 export const loginUser = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -64,7 +62,6 @@ export const loginUser = async (req, res) => {
     }
 };
 
-// get all user
 export const getAllUsers = async (req, res) => {
     try {
         const users = await User.find();
@@ -77,11 +74,9 @@ export const getAllUsers = async (req, res) => {
     }
 };
 
-// delete a user by id
 export const deleteUser = async (req, res) => {
     try {
-        const userId = req.params.id;
-        const user = await User.findByIdAndDelete(userId);
+        const user = await User.findByIdAndDelete(req.params.id);
 
         if (!user) {
             return res.status(404).json({ message: "User not found" });
@@ -92,14 +87,3 @@ export const deleteUser = async (req, res) => {
         res.status(500).json({ message: "Internal server error" });
     }
 };
-
-// export const checkUser =  (req, res) => {
-//     const { username, pass } = req.body;
-//     // checking by static password and username
-//     if ( username === 'admin' && pass === 'admin123'){
-//         res.json({message: 'User Found', status : 200, username})
-//     }
-//     else {
-//         res.json({message: 'User not found', status: 404})
-//     }
-// }

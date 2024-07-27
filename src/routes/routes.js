@@ -12,13 +12,14 @@ import {
     loginUser,
     registerUser,
 } from "../controllers/userController.js";
+
 const router = Router();
 
 // for product
 router.get("/products", GetProducts);
 router.get("/product:id", getSingleProduct);
 router.post("/products", AddProducts);
-router.put("/products/:id", updateProduct);
+router.put("/product/:id", updateProduct);
 router.delete("/product/:id", deleteProduct);
 
 // for user__auth
