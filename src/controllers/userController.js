@@ -1,5 +1,6 @@
 import { User } from "../models/userModel.js";
 
+//register user
 export const registerUser = async (req, res) => {
     try {
         const { name, email, password, confirmPassword } = req.body;
@@ -34,6 +35,7 @@ export const registerUser = async (req, res) => {
     }
 };
 
+// login user
 export const loginUser = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -62,6 +64,7 @@ export const loginUser = async (req, res) => {
     }
 };
 
+// get all user
 export const getAllUsers = async (req, res) => {
     try {
         const users = await User.find();
@@ -74,6 +77,7 @@ export const getAllUsers = async (req, res) => {
     }
 };
 
+// delete a user by id
 export const deleteUser = async (req, res) => {
     try {
         const userId = req.params.id;
