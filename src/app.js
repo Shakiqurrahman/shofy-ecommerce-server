@@ -9,7 +9,7 @@ export const app = express();
 // middleware
 app.use(
     cors({
-        origin: process.env.CORS_ORIGIN,
+        origin: ['http://localhost:5173', 'shofy-ecommerce.vercel.app'],
         credentials: true,
     })
 );

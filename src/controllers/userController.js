@@ -1,3 +1,4 @@
+import jwt from "jsonwebtoken";
 import { User } from "../models/userModel.js";
 
 export const registerUser = async (req, res) => {
@@ -49,9 +50,16 @@ export const loginUser = async (req, res) => {
             return res.status(401).json({ message: "Invalid password" });
         }
 
-        res.status(200).json({
+        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {expiresIn : '1hr'});
+        res.status(200)
+        .cookie('jwt-token', token, {
+            httpOnly : true,
+            secure : false,
+            maxAge : 3600000
+        })
+        .json({
             message: `${user.email} Login Successfully`,
-            user: { _id: user._id, name: user.name, email: user.email },
+            user: { _id: user._id, name: user.name, email: user.email }, token,
         });
     } catch (error) {
         res.status(500).json({
