@@ -6,7 +6,7 @@ import {
     getSingleProduct,
     updateProduct,
 } from "../controllers/productsController.js";
-import { checkUser } from "../controllers/userController.js";
+import { getAllUsers, registerController } from "../controllers/userController.js";
 const router = Router();
 
 // for product
@@ -17,6 +17,7 @@ router.put("/products/:id", updateProduct);
 router.delete("/product/:id", deleteProduct);
 
 // for user__auth
-router.post("/userauth", checkUser);
+router.post("/auth/register", registerController);
+router.get('/users', getAllUsers)
 
 export default router;
