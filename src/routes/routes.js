@@ -12,6 +12,7 @@ import {
     loginUser,
     registerUser,
 } from "../controllers/userController.js";
+import {verifyToken} from "../middlewares/verifyToken.js"
 
 const router = Router();
 
@@ -25,7 +26,7 @@ router.delete("/product/:id", deleteProduct);
 // for user__auth
 router.post("/auth/register", registerUser);
 router.post("/auth/login", loginUser);
-router.get("/users", getAllUsers);
+router.get("/users", verifyToken,getAllUsers);
 router.delete("/user/:id", deleteUser);
 
 export default router;

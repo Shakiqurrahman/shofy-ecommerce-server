@@ -26,7 +26,13 @@ export const registerUser = async (req, res) => {
         });
         await newUser.save();
 
-        res.status(200).json({ newUser });
+        const accessToken  = jwt.sign({ userId: newUser._id, email }, process.env.JWT_SECRET, {expiresIn : '1hr'});
+        res.status(200)
+        .cookie('accessToken', accessToken, {
+            httpOnly : true,
+            secure : false,
+            maxAge : 3600000
+        }).json({ newUser, accessToken });
     } catch (error) {
         res.status(500).json({
             success: false,
@@ -50,19 +56,20 @@ export const loginUser = async (req, res) => {
             return res.status(401).json({ message: "Invalid password" });
         }
 
-        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {expiresIn : '1hr'});
+        const accessToken = jwt.sign({ userId: user._id, email }, process.env.JWT_SECRET, {expiresIn : '1hr'});
         res.status(200)
-        .cookie('jwt-token', token, {
+        .cookie('accessToken', accessToken, {
             httpOnly : true,
             secure : false,
             maxAge : 3600000
         })
         .json({
             message: `${user.email} Login Successfully`,
-            user: { _id: user._id, name: user.name, email: user.email }, token,
+            user: { _id: user._id, name: user.name, email: user.email }, accessToken,
         });
     } catch (error) {
-        res.status(500).json({
+        res.status(500)
+        .json({
             success: false,
             message: "Internal server error",
         });
