@@ -26,7 +26,7 @@ export const registerUser = async (req, res) => {
         });
         await newUser.save();
 
-        const accessToken  = jwt.sign({ userId: newUser._id, email }, process.env.JWT_SECRET, {expiresIn : '1hr'});
+        const accessToken  = jwt.sign({ userId: newUser._id, email, role :newUser.role }, process.env.JWT_SECRET, {expiresIn : '1hr'});
         res.status(200)
         .cookie('accessToken', accessToken, {
             httpOnly : true,
@@ -56,7 +56,7 @@ export const loginUser = async (req, res) => {
             return res.status(401).json({ message: "Invalid password" });
         }
 
-        const accessToken = jwt.sign({ userId: user._id, email }, process.env.JWT_SECRET, {expiresIn : '1hr'});
+        const accessToken = jwt.sign({ userId: user._id, email, role :user.role }, process.env.JWT_SECRET, {expiresIn : '1hr'});
         res.status(200)
         .cookie('accessToken', accessToken, {
             httpOnly : true,
